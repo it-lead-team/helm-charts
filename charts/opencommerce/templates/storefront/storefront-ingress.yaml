@@ -17,6 +17,7 @@ metadata:
     {{ $key }}: {{ $value | quote }}
     {{- end }}
 spec:
+  ingressClassName: alb
 {{- if .Values.storefront.ingress.tls.enabled }}
   tls:
     - hosts:
@@ -27,7 +28,7 @@ spec:
     - http:
         paths:
           - path: {{ .Values.storefront.ingress.path }}
-            pathType: Prefix
+            pathType: ImplementationSpecific
             backend:
               service:      
                 name: {{ template "opencommerce.fullname" . }}-storefront
